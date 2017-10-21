@@ -1,0 +1,15 @@
+
+
+<p class="text-capitalize">Name: <%= @user.name %></p>
+<p>Alias: <%= @user.alias.capitalize %></p>
+<p>Email: <%= @user.email %></p>
+
+
+<!-- Total Likes and total Posts -->
+<div class="row">
+     <div class="col-sm-6">
+          <p>Total Number of Posts:  <%= @user.ideas.count %></p>
+          <p>Total Number of Likes:  </p>
+     </div>
+
+</div>

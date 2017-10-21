@@ -1,0 +1,56 @@
+<h4>Show Page</h4>
+
+<p>Hi <%= @user.alias.capitalize %>!</p>
+
+
+<!-- Create a new event -->
+<div class="row">
+     <div class="col-sm-12">
+          <form class="" action="<%= new_idea_path %>" method="post">
+               <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>"/>
+               <input type="text" name="idea[content]" placeholder="Share your new idea...">
+               <button class="btn btn-sm btn-primary"button>Share your idea!</button>
+          </form>
+     </div>
+</div>
+<div class="row">
+     <div class="col-sm-2"></div>
+     <div class="col-sm-8">
+          <div id="ideas">
+               <% @ideas.each do |idea| %>
+               <p>====================</p>
+                    <p class="text-capitalize"> <a href="<%= user_path idea.user.id %>"> <%= idea.user.alias %></a> says: <%= idea.content %></p>
+                    <% unless idea.user == current_user %>
+                         <% if current_user.liked_ideas.include? idea %>
+                         <!-- Unlike Button -->
+                              <form action="remove_like_path<%= idea.id %>" method="post">
+                                  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+                                  <input type="hidden" name="_method" value="delete">
+                                  <button type="submit" class="btn btn-danger">Unlike</button>
+                              </form>
+                          <% else %>
+                              <!-- Like Button -->
+                              <form action="<%= create_like_path %>" method="post">
+                                  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                  <input type="hidden" name="like_id" value="<%= idea.id %>">
+                                  <button type="submit" class="btn btn-success">Like</button>
+                              </form>
+                          <% end %>
+                     <p> <a href="show_idea_path<%= idea.id %>"><%= idea.liked_by.count%> person(s) </a>like this.</p>
+                    <% else %>
+
+                    <!-- Delete -->
+                         <form class="" action="<%= delete_idea_path idea.id %>" method="post">
+                              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>"/>
+                              <input type="hidden" name="_method" value="delete"/>
+                              <button class="btn btn-sm btn-danger"button>Delete</button>
+
+                         </form>
+
+                    <% end %>
+               <% end %>
+          </div>
+     </div>
+     <div class="col-sm-2"></div>
+</div>

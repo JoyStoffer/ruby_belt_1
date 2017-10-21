@@ -1,0 +1,30 @@
+<p class="text-capitalize"> <a href="<%= user_path idea.user.id %>"> <%= idea.user.alias %></a> says: <%= idea.content %></p>
+
+
+<div class="row">
+     <div class="col-sm-6">
+          <p class="text-capitalize"> <a href="<%= user_path idea.user.id %>"> <%= idea.user.alias %></a> says: <%= idea.content %></p>
+          <p>People who liked this post: <%= @ideas.likes.count %> </p>
+
+          <table class="table table-striped">
+                <thead>
+                    <tr>
+                         <th>Alias</th>
+                         <th>Name</th>
+
+                    </tr>
+               </thead>
+               <tbody>
+               <% @ideas.liked.each do |user| %>
+                    <% unless user == @event.user %>
+                         <tr class="text-capitalize">
+                              <td><a href="<%= user_path idea.user.id %>"> <%= user.alias %></a></td>
+                              <td><%= user.name %></td>
+
+                         </tr>
+                    <% end %>
+               <% end %>
+               </tbody>
+          </table>
+     </div>
+</div>
